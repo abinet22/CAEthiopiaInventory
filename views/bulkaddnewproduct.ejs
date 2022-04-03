@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>PolluxUI Admin</title>
+  <!-- base:css -->
+  <link rel="stylesheet" href="vendors/typicons/typicons.css">
+  <link rel="stylesheet" href="vendors/css/vendor.bundle.base.css">
+  <!-- endinject -->
+  <!-- plugin css for this page -->
+  <!-- End plugin css for this page -->
+  <!-- inject:css -->
+  <link rel="stylesheet" href="css/vertical-layout-light/style.css">
+  <!-- endinject -->
+  <link rel="shortcut icon" href="images/favicon.png" />
+</head>
+<body >
+ 
+  <div class="container-scroller">
+    <!-- partial:partials/_navbar.html -->
+    <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+      <div class="navbar-brand-wrapper d-flex justify-content-center">
+        <div class="navbar-brand-inner-wrapper d-flex justify-content-between align-items-center w-100">
+          <a class="navbar-brand brand-logo" href="/dashboard"><img src="images/logo.png" alt="logo"/></a>
+          <a class="navbar-brand brand-logo-mini" href="/dashboard"><img src="images/logo.png" alt="logo"/></a>
+          <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+            <span class="typcn typcn-th-menu"></span>
+          </button>
+        </div>
+      </div>
+      <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
+    
+        <ul class="navbar-nav navbar-nav-right">
+          <li class="nav-item nav-date dropdown">
+            <a class="nav-link d-flex justify-content-center align-items-center" href="javascript:;">
+              <h6 class="date mb-0">Today : Mar 23</h6>
+              <i class="typcn typcn-calendar"></i>
+            </a>
+          </li>
+       
+          <li class="nav-item dropdown mr-0">
+            <a class="nav-link count-indicator dropdown-toggle d-flex align-items-center justify-content-center" id="notificationDropdown" href="#" data-toggle="dropdown">
+             
+              <i class="typcn typcn-eject text-primary"></i>
+              <span class="count"></span>
+            </a>
+           
+          </li>
+        </ul>
+        <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+          <span class="typcn typcn-th-menu"></span>
+        </button>
+     
+      </div>
+    </nav>
+    <!-- partial -->
+  
+    <div class="container-fluid page-body-wrapper">
+      <!-- partial:partials/_settings-panel.html -->
+      <nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <ul class="nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/dashboard">
+              <i class="typcn typcn-device-desktop menu-icon"></i>
+              <span class="menu-title">Dashboard</span>
+             
+            </a>
+          </li>
+          
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#charts2" aria-expanded="false" aria-controls="charts">
+              <i class="typcn typcn-document-text menu-icon"></i>
+              <span class="menu-title">Add To Inventory</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="charts2">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="/addnewproduct"> With Single Method </a></li>
+                <li class="nav-item"> <a class="nav-link" href="/bulkaddnewproduct"> With Bulk Method</a></li>
+             
+            </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/addsales">
+              <i class="typcn typcn-document-text menu-icon"></i>
+              <span class="menu-title">New Sales</span>
+              <div class="badge badge-danger">+</div>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/addpayment">
+              <i class="typcn typcn-document-text menu-icon"></i>
+              <span class="menu-title">Accept Credits</span>
+              <div class="badge badge-danger">+</div>
+            
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#charts" aria-expanded="false" aria-controls="charts">
+              <i class="typcn typcn-chart-pie-outline menu-icon"></i>
+              <span class="menu-title">Transaction Log</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="charts">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="/salestransaction">Sales Transaction</a></li>
+                <li class="nav-item"> <a class="nav-link" href="/inventorytransaction">Inventory Transaction</a></li>
+             
+            </ul>
+            </div>
+          </li>
+        
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+              <i class="typcn typcn-document-text menu-icon"></i>
+              <span class="menu-title">Settings</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-basic">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="/adduser">Add User</a></li>
+                <li class="nav-item"> <a class="nav-link" href="/addaccount">Add Account</a></li>
+                <li class="nav-item"> <a class="nav-link" href="/addcustomer">Add Customer</a></li>
+                <li class="nav-item"> <a class="nav-link" href="/addinventory">Add Inventory</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/data">
+                <i class="typcn typcn-chart-pie-outline menu-icon"></i>
+              <span class="menu-title">Data</span>
+             
+            </a>
+          </li>
+          
+      
+         
+        </ul>
+      </nav>
+      <!-- partial -->
+      <div class="main-panel">
+        <div class="content-wrapper">
+          <div class="col-lg-12">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+              <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Bulk Method</button>
+              </li>
+           
+            
+            </ul>
+          </div>
+        
+          <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                <div class="col-lg-12 grid-margin stretch-card">
+                    <div class="card">
+                      <%- include ('./partials/messages') %>
+                    <div class="card-body">
+                      <h4 class="card-title"> Upload Inventory Excel </h4>
+                      <div class="row">
+                      
+                        <div class="col-sm-6 mb-4 mb-xl-0">
+                        
+                        <a href="/upload/downloadinventorytemplate">
+                          <p class="card-description" >
+                            Download Excel Template
+                            </p>
+                        </a>
+                        </div>
+                        <div class="col-sm-6">
+                          <div class="d-flex align-items-center justify-content-md-end">
+                        
+                        
+                          </div>
+                        </div>
+                        </div>
+                        <% var productlist; %>
+                        <% if(newproductlist.length > 0 ){ %>
+                          <% productlist = newproductlist; %>
+                          <% newproductlist.forEach(function(row){  %>
+                       
+                            <%   })} else{ %>
+                              <% productlist = 0; %>
+                              <%  }  %>
+                      <form action="/uploadinventorydata" method="post"  enctype="multipart/form-data">
+                        <div class="form-group">
+
+                          <div class="row">
+                            <div class="col-md-4">
+                              <label for="exampleSelectGender">Select Inventory</label>
+                        
+                            </div>
+                            <div class="col-md-8">
+                              <select class="form-control input-sm" id="invnetoryname"  name="invnetoryname" onchange="onproductnameselect(this)">
+                                <option value="0">Please Select Inventory Name</option>
+                             <% if(inventorylist.length > 0 ){ %>
+                              <% inventorylist.forEach(function(row){  %>
+                                <option value="<%= row.inventoryname %>">  <%= row.inventoryname   %></option>
+                              
+                                <%   })} %>
+                              </select>
+                            </div>
+                          </div>
+
+                        
+                          </div>
+                        <div class="form-group">
+                          <div class="row">
+                            <div class="col-md-4">
+                              <label for="exampleSelectGender">Container Number <code>***</code></label>
+                          
+                            </div>
+                            <div class="col-md-8">
+                               <input class="form-control input-sm" id="containernumber" autocomplete="off" name="containernumber" placeholder="Container Number">
+                           
+                            </div>
+                          </div>
+                          </div>
+                        <div class="input-group col-xs-12">
+                      
+                          <input type="file" class="form-control file-upload-info" accept="application/vnd.openxml" name="inventorydata" id="inventorydata" placeholder="Upload Inventory Data Excel File">
+                          <span class="input-group-append">
+                            <button class="file-upload-browse btn btn-primary" type="submit">Upload</button>
+                          </span>
+                      
+                      
+                        </div>
+                      </form>
+                  
+                    </div>
+                    </div>
+                  </div>
+              <div class="col-12">
+                <div class="alert alert-dismissible fade show col-sm-12" role="alert" id="serverres" style="display:none;">
+                  <p id="servermsg"></p>
+                  <!-- <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button> -->
+                </div>
+                <div class="card ">
+                  <div class="card-body wrap cf">
+                  
+                    <div class="heading cf">
+                     
+              <i class="fa fa-shopping-cart fa-3x" aria-hidden="true" style="color: #82ca9c;"></i>
+                    </div>
+                    <div class="cart table-responsive pt-3" id="cont">
+                      <div class="table-responsive pt-3">
+                        <table class="table table-striped project-orders-table" id="empTable">
+                          <thead>
+                            <tr>
+                              <th class="ml-5">#</th>
+                              <th>INVENTORY ID.</th>
+                              <th>CTNS NO.</th>
+                              <th>CONTAINER NO.</th>
+                              <th>Product CODE</th>
+                              <th>Product Description</th>
+                              <th>Product SIZE</th>
+                              <th>NUMBER OF CTNS</th>
+                              <th>QUANTITY PER BOX</th>
+                              <th>UNIT</th>
+                              <th>TOTAL QUANTITY</th>
+                  
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <% if (newproductlist.length >0){ %>
+                                <% var i =0; %> 
+                              <% newproductlist.forEach(function(row){ %>
+                                <% i++ ; %>
+                               <tr>
+                                  <td># <%= i %></td>
+                                  <td style="text-transform: uppercase;">
+                                    <%= row[0] %> 
+                                  </td>
+                                  <td style="text-transform: uppercase;">
+                                    <%= row[1] %> 
+                                 
+                                  </td>
+                                  <td style="text-transform: uppercase;">
+                                 
+                                    <%= row[2] %>   
+                                  </td>
+                                  <td style="text-transform: uppercase;">
+                                 
+                                    <%= row[3] %>   
+                                  </td>
+                                  <td style="text-transform: uppercase;">
+                                 
+                                    <%= row[4] %>   
+                                  </td>
+                                  <td> <%= row[5] %></td>
+                                  <td>
+                                    <%= row[6] %>  
+                                 
+                                  </td>
+                                  <td>
+                                    <%= row[7] %>  
+                                 
+                                  </td>
+                                  <td>
+                                    <%= row[8] %>  
+                                 
+                                  </td>
+                                  <td>
+                                    <%= row[9] %>  
+                                 
+                                  </td>
+                              
+                                </tr>
+      
+                                <% })} else { %>
+                            
+                          <%  } %>
+                         
+                      
+                          </tbody>
+                        </table>
+                      </div>
+                   
+                    </div>
+                    
+                  
+                    
+                    <div class="subtotal">
+                     
+                             
+                          
+                      <form>
+                        <button type="button" class="btn btn-lg btn-block btn-primary" onclick="convertArrayToJSON();" >Save</button>
+                      </form>
+                    
+               
+                    </div>
+                  </div>
+                 </div>
+              </div> 
+            
+            
+            </div>
+          
+           </div>
+
+         
+            
+            
+            </div>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+            <script src ="https://cdnjs.cloudflare.com/ajax/libs/jquery-json/2.4.0/jquery.json.min.js"></script>
+     
+            <script>
+                  function isNumberKey(evt)
+{
+var charCode = (evt.which) ? evt.which : evt.keyCode;
+if (charCode != 46 && charCode > 31 
+  && (charCode < 48 || charCode > 57))
+
+   return false;
+
+return true;
+}
+            </script>
+               <script>
+          
+                    function storeTblValues()
+                    {
+                        var TableData = new Array();
+                       
+                        $('#empTable tr').each(function (row, tr) {
+                         
+                          var currentRow=$(this);
+                          var col =currentRow.find("td:eq(1)").text();
+           if(!col.length )
+           {
+             
+           }
+  else{
+    var col1_value=currentRow.find("td:eq(1)").text();
+    var col2_value=currentRow.find("td:eq(2)").text();
+    var col3_value=currentRow.find("td:eq(3)").text();
+    var col4_value=currentRow.find("td:eq(4)").text();
+    var col5_value=currentRow.find("td:eq(5)").text();
+    var col6_value=currentRow.find("td:eq(6)").text();
+    var col7_value=currentRow.find("td:eq(7)").text();
+    var col8_value=currentRow.find("td:eq(8)").text();
+    var col9_value=currentRow.find("td:eq(9)").text();
+    var col10_value=currentRow.find("td:eq(10)").text();
+ 
+     var obj={};
+    obj.inventory=col1_value;
+    obj.cartonnumber=col2_value;
+    obj.containerid=col3_value;
+    obj.productcode=col4_value;
+    obj.productdescription=col5_value;
+    obj.productsize=col6_value;
+    obj.totalcarton=parseFloat(col7_value);
+    obj.quantity=parseFloat(col8_value);
+    obj.unit=col9_value;
+  
+    obj.totalamount=parseFloat(col10_value);
+ 
+ 
+
+    TableData.push(obj);
+  }
+
+    
+                            // TableData[row] = {
+                            
+                            //     "ProductDescription": $(tr).find('td:eq(1)').text()
+                            //     , "UnitPrice": $(tr).find('td:eq(2)').text()
+                            //     , "Quanity": $(tr).find('td:eq(3)').text()
+                            //     , "Total": $(tr).find('td:eq(4)').text()
+                            // }
+                        });
+                      // first row will be empty - so remove
+                        return TableData;
+                    }
+            
+                    function convertArrayToJSON()
+                    {
+                        var TableData;
+                       // TableData = $.toJSON(storeTblValues());
+                       TableData =  JSON.stringify(storeTblValues());
+                      //  $('#tbConvertToJSON').html('<br>JSON array: <br>' + TableData.replace(/},/g, "},<br>"));
+            
+          //  console.log(TableData);
+          $.ajax({
+                            type: "POST",
+                            url: "/addnewinventorylist",
+                            data: "pTableData=" + TableData,    // post TableData to server script
+            
+                            success: function (data) {
+                              if(data.messages == 'success'){ // if true (1)
+                                var x = document.getElementById("serverres");
+                                var msg = document.getElementById("servermsg");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+    x.className="alert-success";
+    msg.innerHTML="You are successfully add new inventory data!"
+      setTimeout(function(){// wait for 5 secs(2)
+           location.reload(); // then reload the page.(3)
+      }, 2000); 
+
+  } else {
+    x.style.display = "none";
+  }
+      // setTimeout(function(){// wait for 5 secs(2)
+      //      location.reload(); // then reload the page.(3)
+      // }, 1000); 
+   }
+   else{
+    var x = document.getElementById("serverres");
+                                var msg = document.getElementById("servermsg");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+    x.className = "alert-danger";
+    msg.innerHTML="Something is wrong please try later!"
+      setTimeout(function(){// wait for 5 secs(2)
+           location.reload(); // then reload the page.(3)
+      }, 2000); 
+
+  } else {
+    x.style.display = "none";
+  }
+   
+   }
+                            }
+                        });
+                    }
+                    function sendTblDataToServer()
+                    {
+                        var TableData;
+                        TableData = JSON.stringify(storeTblValues());
+                        $('#tbSendTblDataToServer').val('JSON array to send to server: <br<br>' + TableData.replace(/},/g, "},<br>"));
+            
+                        $.ajax({
+                            type: "POST",
+                            url: "/addnewtransaction",
+                            data: "pTableData=" + TableData,    // post TableData to server script
+            
+                            success: function (msg) {
+                                // return value stored in msg variable 
+                                $('#tbServerResponse').html('Server Response:<br><br><pre>' + msg + '</pre>');
+                            }
+                        });
+                      
+                    }
+            
+            
+                </script>
+         
+           <script type="text/javascript">
+        var selectedinventory;
+         var arrHead = new Array();	// array for header.
+    arrHead = ['','Inventory', 'CTNS_NO','Container_ID','Product_Code','Description','Product_Size', 'Ctns','QTy_Box', 'Unit','Total_QTY','Buying_Price','Additional_Cost','Selling_Price'];
+    
+
+    // first create TABLE structure with the headers. 
+    function createTable() {
+      document.getElementById("containernumber").focus();
+        var empTable = document.createElement('table');
+        empTable.setAttribute('id', 'empTable'); // table id.
+        empTable.style.className ="table table-striped";
+        var tr = empTable.insertRow(-1);
+        for (var h = 0; h < arrHead.length; h++) {
+            var th = document.createElement('th'); // create table headers
+            th.innerHTML = arrHead[h];
+            tr.appendChild(th);
+        }
+
+        var div = document.getElementById('cont');
+        div.appendChild(empTable); 
+        addRow();
+        // add the TABLE to the container.
+    }
+    var subtotal =0;
+    // now, add a new to the TABLE.
+    function addRow() {
+      
+    
+          
+        var empTab = document.getElementById('empTable');
+
+        var rowCnt = empTab.rows.length;   // table row count.
+        var tr = empTab.insertRow(rowCnt); // the table row.
+      //  tr.setAttribute('class','data');
+        tr = empTab.insertRow(rowCnt);
+
+        for (var c = 0; c < arrHead.length; c++) {
+            var td = document.createElement('td'); // table definition.
+            td = tr.insertCell(c);
+
+            if (c == 0) {      // the first column.
+                // add a button in every new row in the first column.
+                var button = document.createElement('input');
+
+                // set input attributes.
+                button.setAttribute('type', 'button');
+                button.setAttribute('value', 'X');
+              
+             
+                button.style.fontweight="bold";
+                button.style.background=" #e0e0e0";
+	              button.style.borderRadius="1%";
+                button.style.borderWidth="0";
+                button.style.display ="inline-block";
+               // button.style.backgroundColor ="red";
+                button.setAttribute('onmouseover', 'hovers(this)');
+                
+             button.setAttribute('onmouseout','hoverends(this)')
+                // add button's 'onclick' event.
+                button.setAttribute('onclick', 'removeRow(this)');
+
+                td.appendChild(button);
+            }
+        
+            else if(c ==1){
+                // 2nd, 3rd and 4th column, will have textbox.
+               // var inventoryname = document.getElementById('inventoryname').value;
+              
+
+             var ele = document.createElement('td');
+   
+                td.style.width= "100px";
+                td.className="md-5";
+                td.innerHTML=selectedinventory ;
+              //  td.appendChild(ele);
+            }
+            else if(c==2){
+              var cartonnumber =document.getElementById('cartonnumber').value;
+              
+              var ele = document.createElement('td');
+          
+             
+                td.style.width= "100px";
+                td.className="md-5";
+                td.innerHTML = cartonnumber;
+               // td.appendChild(ele);
+            }
+            else if(c==3){
+              var containernumber =document.getElementById('containernumber').value;
+             
+             
+
+                td.style.width= "100px";
+                td.className="md-5";
+                td.innerHTML = containernumber;
+               // td.appendChild(ele);
+            }
+            else if(c==4){
+              var productcode  =document.getElementById('productcode').value;
+             //   var proprice =document.getElementById('price').value;
+              var ele = document.createElement('td');
+         
+                td.innerHTML = productcode;
+                td.className="md-5";
+                td.style.width= "100px";
+              //  td.appendChild(ele);
+            }
+            else if(c==5){
+              var productdescription =document.getElementById('productdescription').value;
+             //   var proprice =document.getElementById('price').value;
+              var ele = document.createElement('td');
+         
+                td.innerHTML = productdescription;
+                td.className="md-5";
+                td.style.width= "100px";
+              //  td.appendChild(ele);
+            }
+            else if(c==6){
+              var productsize =document.getElementById('productsize').value;
+             //   var proprice =document.getElementById('price').value;
+              var ele = document.createElement('td');
+         
+                td.innerHTML = productsize;
+                td.className="md-5";
+                td.style.width= "100px";
+              //  td.appendChild(ele);
+            }
+            else if(c==7){
+              
+              var totalcarton =document.getElementById('totalcarton').value;
+             //   var proprice =document.getElementById('price').value;
+              var ele = document.createElement('td');
+         
+                td.innerHTML = totalcarton;
+                td.className="md-2";
+                td.style.width= "100px";
+              //  td.appendChild(ele);
+            }
+            else if(c==8){
+              var quantity =document.getElementById('quantity').value;
+             //   var proprice =document.getElementById('price').value;
+              var ele = document.createElement('td');
+         
+                td.innerHTML = quantity;
+                td.className="md-2";
+                td.style.width= "100px";
+              //  td.appendChild(ele);
+            }
+            else if(c==9){
+            //  var buyingprice =document.getElementById('buyingprice').value;
+             //   var proprice =document.getElementById('price').value;
+              var ele = document.createElement('td');
+         
+                td.innerHTML = "PRS";
+                td.className="md-2";
+                td.style.width= "100px";
+              //  td.appendChild(ele);
+            }
+            else if(c==10){
+              var quantity =document.getElementById('quantity').value;
+                var totalcarton =document.getElementById('totalcarton').value;
+              var ele = document.createElement('td');
+           var totalamount = quantity * totalcarton ;
+                td.innerHTML = totalamount;
+                td.style.width= "100px";
+                td.className="md-2";
+              //  td.appendChild(ele);
+            }
+        
+  
+          
+            
+        }
+   
+       
+      }
+   
+      
+
+
+
+
+
+    function hovers(x){
+                  x.style.backgroundColor ="red";
+                }
+   function hoverends(x){
+                  x.style.backgroundColor ="#e0e0e0";
+                }
+
+    // delete TABLE row function.
+    function removeRow(oButton) {
+        var empTab = document.getElementById('empTable');
+        var rowindex = oButton.parentNode.parentNode.rowIndex;
+       
+       var element= document.getElementById("empTable").rows[rowindex].cells[5];
+          
+    var total =    element.innerHTML ;
+                    parseFloat(total);
+                     subtotal -=total ;
+              var vat = subtotal * 0.15;
+              document.getElementById('subtotal').innerHTML = subtotal;
+              document.getElementById('vat').innerHTML = vat;
+              document.getElementById('total').innerHTML = subtotal + vat;
+      //           }
+        empTab.deleteRow(oButton.parentNode.parentNode.rowIndex); // button -> td -> tr.
+        
+       }
+
+    // function to extract and submit table data.
+    function submit() {
+        var myTab = document.getElementById('empTable');
+        var arrValues = new Array();
+
+        // loop through each row of the table.
+        for (row = 1; row < myTab.rows.length - 1; row++) {
+        	// loop through each cell in a row.
+            for (c = 0; c < myTab.rows[row].cells.length; c++) {  
+                var element = myTab.rows.item(row).cells[c];
+                if (element.childNodes[0].getAttribute('type') == 'text') {
+                    arrValues.push("'" + element.childNodes[0].value + "'");
+                }
+            }
+        }
+        
+        // The final output.
+        document.getElementById('output').innerHTML = arrValues;
+        //console.log (arrValues);   // you can see the array values in your browsers console window. Thanks :-) 
+    }
+
+            </script>
+        <!-- content-wrapper ends -->
+        <!-- partial:partials/_footer.html -->
+        <footer class="footer">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-sm-flex justify-content-center justify-content-sm-between">
+                        <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2022 <a href="https://www.techlinktechnologies.com/" class="text-muted" target="_blank"></a>. All rights reserved.</span>
+                        <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center text-muted"> <a href="https://www.techlinktechnologies.com/" class="text-muted" target="_blank"> </a> TechLinkTechnologies</span>
+                    </div>
+                </div>    
+            </div>        
+        </footer>
+        <!-- partial -->
+      </div>
+      <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+  </div>
+  <!-- container-scroller -->
+
+  <!-- base:js -->
+  <script src="../vendors/js/vendor.bundle.base.js"></script>
+  <!-- endinject -->
+  <!-- Plugin js for this page-->
+  <script src="../vendors/chart.js/Chart.min.js"></script>
+  <!-- End plugin js for this page-->
+  <!-- inject:js -->
+  <script src="../js/off-canvas.js"></script>
+  <script src="js/hoverable-collapse.js"></script>
+  <script src="js/template.js"></script>
+  <script src="js/settings.js"></script>
+  <script src="js/todolist.js"></script>
+  <!-- endinject -->
+  <!-- Custom js for this page-->
+  <script src="../js/dashboard.js"></script>
+  <!-- End custom js for this page-->
+</body>
+
+</html>
+

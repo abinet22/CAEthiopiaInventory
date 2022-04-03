@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>PolluxUI Admin</title>
+  <!-- base:css -->
+  <link rel="stylesheet" href="vendors/typicons/typicons.css">
+  <link rel="stylesheet" href="vendors/css/vendor.bundle.base.css">
+  <!-- endinject -->
+  <!-- plugin css for this page -->
+  <!-- End plugin css for this page -->
+  <!-- inject:css -->
+  <link rel="stylesheet" href="css/vertical-layout-light/style.css">
+  <!-- endinject -->
+  <link rel="shortcut icon" href="images/favicon.png" />
+</head>
+<body onload="createTable()">
+ 
+  <div class="container-scroller">
+    <!-- partial:partials/_navbar.html -->
+    <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+      <div class="navbar-brand-wrapper d-flex justify-content-center">
+        <div class="navbar-brand-inner-wrapper d-flex justify-content-between align-items-center w-100">
+          <a class="navbar-brand brand-logo" href="/dashboard"><img src="images/logo.png" alt="logo"/></a>
+          <a class="navbar-brand brand-logo-mini" href="/dashboard"><img src="images/logo.png" alt="logo"/></a>
+          <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+            <span class="typcn typcn-th-menu"></span>
+          </button>
+        </div>
+      </div>
+      <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
+        <ul class="navbar-nav mr-lg-2">
+          <li class="nav-item nav-profile dropdown">
+        
+            <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
+              
+              <a class="dropdown-item">
+                <i class="typcn typcn-eject text-primary"></i>
+                Logout
+              </a>
+            </div>
+          </li>
+         
+        </ul>
+        <ul class="navbar-nav navbar-nav-right">
+          <li class="nav-item nav-date dropdown">
+            <a class="nav-link d-flex justify-content-center align-items-center" href="javascript:;">
+              <h6 class="date mb-0">Today : Mar 23</h6>
+              <i class="typcn typcn-calendar"></i>
+            </a>
+          </li>
+        
+          <li class="nav-item dropdown mr-0">
+            <a class="nav-link count-indicator dropdown-toggle d-flex align-items-center justify-content-center" id="notificationDropdown" href="#" data-toggle="dropdown">
+              <i class="typcn typcn-eject text-primary"></i>
+              <span class="count"></span>
+            </a>
+           
+          </li>
+        </ul>
+        <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+          <span class="typcn typcn-th-menu"></span>
+        </button>
+      </div>
+    </nav>
+    <!-- partial -->
+  
+    <div class="container-fluid page-body-wrapper">
+      <!-- partial:partials/_settings-panel.html -->
+      <nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <ul class="nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/dashboard">
+              <i class="typcn typcn-device-desktop menu-icon"></i>
+              <span class="menu-title">Dashboard</span>
+             
+            </a>
+          </li>
+          
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#charts2" aria-expanded="false" aria-controls="charts">
+              <i class="typcn typcn-document-text menu-icon"></i>
+              <span class="menu-title">Add To Inventory</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="charts2">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="/addnewproduct"> With Single Method </a></li>
+                <li class="nav-item"> <a class="nav-link" href="/bulkaddnewproduct"> With Bulk Method</a></li>
+             
+            </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/addsales">
+              <i class="typcn typcn-document-text menu-icon"></i>
+              <span class="menu-title">New Sales</span>
+              <div class="badge badge-danger">+</div>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/addpayment">
+              <i class="typcn typcn-document-text menu-icon"></i>
+              <span class="menu-title">Accept Credits</span>
+              <div class="badge badge-danger">+</div>
+            
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#charts" aria-expanded="false" aria-controls="charts">
+              <i class="typcn typcn-chart-pie-outline menu-icon"></i>
+              <span class="menu-title">Transaction Log</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="charts">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="/salestransaction">Sales Transaction</a></li>
+                <li class="nav-item"> <a class="nav-link" href="/inventorytransaction">Inventory Transaction</a></li>
+             
+            </ul>
+            </div>
+          </li>
+        
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+              <i class="typcn typcn-document-text menu-icon"></i>
+              <span class="menu-title">Settings</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-basic">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="/adduser">Add User</a></li>
+                <li class="nav-item"> <a class="nav-link" href="/addaccount">Add Account</a></li>
+                <li class="nav-item"> <a class="nav-link" href="/addcustomer">Add Customer</a></li>
+                <li class="nav-item"> <a class="nav-link" href="/addinventory">Add Inventory</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/data">
+                <i class="typcn typcn-chart-pie-outline menu-icon"></i>
+              <span class="menu-title">Data</span>
+             
+            </a>
+          </li>
+          
+      
+         
+        </ul>
+      </nav>
+      <!-- partial -->
+      <div class="main-panel">
+        <div class="content-wrapper">
+          <div class="alert alert-dismissible fade show col-sm-12" role="alert" id="success" style="display:none;">
+            <p id="successmsg"></p>
+            <!-- <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button> -->
+          </div>
+          <%- include ('./partials/messages') %>
+          <div class="row">
+           <%  var containers; %>
+            <% var inventory; %>
+            <% if (containernumber.length >0){ %>
+              <% containers = containernumber ; %>
+              <% containernumber.forEach(function(row){ %>
+            
+                <% })} else { %>
+                  <% containers = 0 ; %>
+          <%  } %>
+          <% if (inventorylist.length >0){ %>
+            <% inventory = inventorylist ; %>
+            <% inventorylist.forEach(function(row){ %>
+          
+              <% })} else { %>
+                <% inventory = 0 ; %>
+        <%  } %>
+           <div class="col-md-6">
+            <div class="card">
+              <div class= "card-header">
+                  <h5>Choose Product</h5>
+              </div>
+         
+                <div class="">
+                  <div class="card-body">
+                    <div class="row">
+  <div class="col-md-6">
+    <div class="form-group">
+      <div class=" row">
+      <div class="col-sm-4">
+        <label for="exampleSelectGender">Container Number</label>
+     
+      </div>
+      <div class="col-sm-8">
+        <input class="form-control form-control-sm" list="datalistOptions" autocomplete="off" id="containernumber" name="containernumber" placeholder="Type to search...">
+  <datalist id="datalistOptions">
+    <option>Please Select Container Number</option>
+          <% if (containernumber.length >0){ %>
+           
+            <% containernumber.forEach(function(row){ %>
+              <option value="<%= row.containernumber %>"><%= row.containernumber %></option>
+              <% })} else { %>
+          
+        <%  } %>
+  </datalist>
+      
+      </div>
+      </div>
+      
+      </div>
+  </div>
+  <div class="col-md-6">
+    <div class="form-group">
+      <div class=" row">
+      <div class="col-sm-4">
+        <label for="exampleSelectGender">Product Code</label>
+     
+      </div>
+      <div class="col-sm-8">
+        <input type="text" class="form-control form-control-sm"  id="productcode" name="productcode" autocomplete="off" placeholder="Product Code" onchange="loaddata(this)">
+      </div>
+      </div>
+      
+      </div>
+  </div>
+  
+                    </div>
+                   
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <div class="row">
+                            <div class="col-md-4">
+                              <label for="exampleInputCity1">Product Description</label>
+                       
+                            </div>
+                            <div class="col-md-8">
+                              <input type="text"  class="form-control form-control-sm " disabled id="prodescription" name="prodescription" placeholder="Product Description">
+                    
+                            </div>
+                          </div>
+                          </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <div class="row">
+                            <div class="col-md-4">
+                              <label for="exampleInputCity1">Product Size</label>
+                       
+                            </div>
+                            <div class="col-md-8">
+                              <input type="text"  class="form-control form-control-sm " disabled id="productsize" name="productsize" id placeholder="Product Size">
+                    
+                            </div>
+                          </div>
+                          </div>
+                      </div>
+                    </div>
+                  
+                    <div class="form-group">
+                      <div class="row">
+                      
+                        <div class="col-md-6">
+                          <div class="row">
+                            <div class="col-md-4">  <label for="exampleInputName1">Stock Quantity </label>
+                            </div>
+                            <div class="col-md-8">     <input type="text" disabled class="form-control form-control-sm" id="currentquantity" name="currentquantity" placeholder="Stock Quantity">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="row">
+                            <div class="col-md-4">    <label for="exampleInputName1">Quantity Per Box</label>
+                            </div>
+                            <div class="col-md-8">        <input type="text" disabled class="form-control form-control-sm" id="qtyperbox" name="qtyperbox" placeholder="Qty Per Price">
+                            </div>
+                          </div>
+                              </div>
+                      </div>
+                        </div>
+                 
+                         
+                              <div class="row">
+                                <div class="col-md-6">
+                                  <div class="form-group">
+                                    <div class="row">
+                                      <div class="col-md-4">
+                                        <label for="exampleInputCity1">Quanity/# Of Box</label>
+                                 
+                                      </div>
+                                      <div class="col-md-8">
+                                        <input type="text" autocomplete="off" onkeypress="return isNumberKey(event)" class="form-control form-control-sm " id="quantity" name="quantity" placeholder="Qunatity">
+                              
+                                      </div>
+                                    </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                  <div class="form-group">
+                                    <div class="row">
+                                      <div class="col-md-4">
+                                        <label for="exampleInputCity1">Unit Price</label>
+                                 
+                                      </div>
+                                      <div class="col-md-8">
+                                        <input type="text" autocomplete="off" onkeypress="return isNumberKey(event)" class="form-control form-control-sm " id="unitprice" name="unitprice" id placeholder="Box Price">
+                              
+                                      </div>
+                                    </div>
+                                    </div>
+                                </div>
+                              </div>
+                                  
+                          
+                                  <div class="form-group">
+                                    <div class="row">
+                                     <div class="col-md-4">
+                                      <label for="exampleSelectGender">Customer Name</label>
+                                 
+                                    </div>
+                                    <div class="col-md-8">
+                                      <input class="form-control form-control-sm" autocomplete="off" list="customerlist" id="customername" name="customername" placeholder="Type to search...">
+                                      <datalist id="customerlist">
+                                        <option>Please Select Customer Number</option>
+                                              <% if (customerlist.length >0){ %>
+                                               
+                                                <% customerlist.forEach(function(row){ %>
+                                                  <option><%= row.customername %></option>
+                                                  <% })} else { %>
+                                              
+                                            <%  } %>
+                                      </datalist>
+                                   
+                                    </div>
+                                     
+                                    
+                                    
+                                    </div>
+                                  </div>
+                                                   
+                                  
+                                    <div class="form-group">
+                                      <div class="row">
+                                        <div class="col-md-4">
+                                          <label for="exampleSelectGender">Payment Option</label>
+                                  
+                                        </div>
+                                      <div class="col-md-8">
+                                        <select class="form-control" id="paymentoption" onchange="onpaymentoptionchange(this);">
+                                          <option value="0">Please Select Payment Option</option>
+                                          <option value="Cash">Cash</option>
+                                          <option value="Bank_Transfer">Bank_Transfer</option>
+                                          <option value="Credit">Credit</option>
+                                        </select>
+                                        </div>
+                                    
+                                      </div>
+                                     
+                                      </div>
+                                      <div id="banktranseferdata" style="display: none;">
+                                        <label><code>If Bank Transfer?</code></label>
+                                        <div class="form-group">
+                                         
+                                          <div class="row">
+                                            <div class="col-md-4">
+                                              <label for="exampleSelectGender">Select Account </label>
+                                        
+                                            </div>
+                                          <div class="col-md-8">
+                                            <select class="form-control" id="bankaccount" name="bankaccount">
+                                              <option value="0">Please Select Bank Account </option>
+                                              <% if (account.length >0){ %>
+                                               
+                                                <% account.forEach(function(row){ %>
+                                                  <option value="<%= row.accountnumber %>"><%= row.bankname %>/<%= row.accountnumber %></option>
+                                                  <% })} else { %>
+                                              
+                                            <%  } %>
+                                            </select>
+                                            </div>
+                                        
+                                          </div>
+                                           
+                                          </div>
+                                          <div class="form-group">
+                                            <div class="row">
+                                              <div class="col-md-4">
+                                                <label for="exampleInputCity1">Transaction Number </label>
+                                           
+                                              </div>
+                                              <div class="col-md-8">
+                                                <input type="text" autocomplete="off" class="form-control form-control-sm" id="transactionnumber" name="transactionnumber" placeholder="Transaction Number">
+                                     
+                                              </div>
+                                            </div>
+                                             </div>
+                                      </div>
+                                     
+                                
+                               
+              
+                    <div class="col-md-8 offset-md-2">
+                      <button type="button" class="btn btn-primary btn-sm btn-block"  onclick="addRow()">Add</button>
+                  
+                    </div>
+                  </div>
+                </div>
+              
+          
+  
+          </div>
+           </div>
+           <div class="card col-md-6">
+            <div class="card-body wrap cf">
+            
+              <div class="heading cf">
+               
+    <i class="fa fa-shopping-cart fa-3x" aria-hidden="true" style="color: #82ca9c;"></i>
+              </div>
+              <div class="cart table-responsive pt-3" id="cont">
+        
+             
+              </div>
+              
+            
+              
+              <div class="subtotal">
+                
+              
+                    
+                <form>
+                  <button type="button" class="btn btn-lg btn-block btn-primary" onclick="convertArrayToJSON();" >Sale</button>
+                </form>
+              
+         
+              </div>
+            </div>
+           </div>
+          </div>
+
+        </div>
+      
+        <!-- End Small Stats Blocks -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <!-- CSS for searching -->
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+        <!-- JS for searching -->
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src ="https://cdnjs.cloudflare.com/ajax/libs/jquery-json/2.4.0/jquery.json.min.js"></script>
+
+    <script>
+ 
+      var containernumber ;
+        function isNumberKey(evt)
+{
+var charCode = (evt.which) ? evt.which : evt.keyCode;
+if (charCode != 46 && charCode > 31 
+&& (charCode < 48 || charCode > 57))
+
+return false;
+
+return true;
+}
+function oncontainernumberchange(containernumber)
+{
+  containernumber = containernumber.value;
+ 
+};
+function onpaymentoptionchange(paymentoption)
+{
+ var optiontype = paymentoption.value;
+ if(optiontype =="Bank_Transfer")
+ {
+document.getElementById('banktranseferdata').style.display="block";
+ }
+ else{
+  document.getElementById('banktranseferdata').style.display="none";
+  document.getElementById('bankaccount').value=0;
+ }
+};
+function loaddata()
+{
+  document.getElementById('qtyperbox').value = "";
+ document.getElementById('currentquantity').value = "";
+ document.getElementById('prodescription').value = "";
+          document.getElementById('productsize').value = "";
+  var productcode =  document.getElementById('productcode').value;
+ barcodereader(productcode);
+};
+function isJson(str) {
+    try {
+        JSON.parse(str);
+    } catch (e) {
+        return false;
+    }
+    return true;
+} ;   
+
+
+function barcodereader(enterproductcode) {
+
+var inventory;
+
+if (isJson('<%- JSON.stringify(inventory) %>')){
+  let inventoryobj= '<%- JSON.stringify(inventory) %>'; 
+   inventory =  JSON.parse(inventoryobj);
+}else{
+    //report the error
+     inventory = 0 ; 
+}
+
+if(inventory.length > 0)
+{
+  
+for(var i = 0; i < inventory.length; i++)
+{
+var productcode  = inventory[i].productcode;
+var containerno  = inventory[i].containernumber;
+var containernumber = document.getElementById('containernumber').value;
+console.log(containernumber);
+if(productcode == enterproductcode && containerno == containernumber)
+{
+  var prodesc =inventory[i].productdescription;
+  var prosize =inventory[i].productsize;
+var qtyperbox = inventory[i].quantitypercarton;
+var currentquantity = inventory[i].currentquantity;
+var proname = inventory[i].productname;
+ document.getElementById('qtyperbox').value = qtyperbox;
+ document.getElementById('currentquantity').value = currentquantity;
+ document.getElementById('prodescription').value = prodesc;
+          document.getElementById('productsize').value = prosize;
+          
+
+}
+
+
+
+}
+
+
+}
+}
+   
+   
+   </script>
+       <script>
+      
+                function storeTblValues()
+                {
+                    var TableData = new Array();
+                   
+                    $('#empTable tr').each(function (row, tr) {
+                     
+                      var currentRow=$(this);
+                      var col =currentRow.find("td:eq(1)").text();
+       if(!col.length )
+       {
+         
+       }
+else{
+var col1_value=currentRow.find("td:eq(1)").text();
+var col2_value=currentRow.find("td:eq(2)").text();
+var col3_value=currentRow.find("td:eq(3)").text();
+var col4_value=currentRow.find("td:eq(4)").text();
+var col5_value=currentRow.find("td:eq(5)").text();
+var col6_value=currentRow.find("td:eq(6)").text();
+var col7_value=currentRow.find("td:eq(7)").text();
+var col8_value=currentRow.find("td:eq(8)").text();
+var col9_value=currentRow.find("td:eq(9)").text();
+var col10_value=currentRow.find("td:eq(10)").text();
+ var obj={};
+obj.productcode=col1_value;
+obj.productdescription=col2_value;
+obj.unitprice=parseFloat(col3_value);
+obj.quantity=parseFloat(col4_value);
+obj.total=parseFloat(col5_value);
+obj.customername=col6_value;
+obj.paymentoption=col7_value;
+obj.transactionid=col8_value;
+obj.bankname=col9_value;
+obj.containerid=col10_value;
+
+TableData.push(obj);
+}
+
+
+                    });
+                  // first row will be empty - so remove
+                    return TableData;
+                }
+        
+                function convertArrayToJSON()
+                {
+                    var TableData;
+                   // TableData = $.toJSON(storeTblValues());
+                   TableData =  JSON.stringify(storeTblValues());
+                  //  $('#tbConvertToJSON').html('<br>JSON array: <br>' + TableData.replace(/},/g, "},<br>"));
+        
+      //  console.log(TableData);
+      $.ajax({
+                        type: "POST",
+                        url: "/addnewtransaction",
+                        data: "pTableData=" + TableData,    // post TableData to server script
+        
+                        success: function (data) {
+                          if(data.messages == 'success'){ // if true (1)
+                            var x = document.getElementById("success");
+                            var msg = document.getElementById("successmsg");
+if (x.style.display === "none") {
+x.style.display = "block";
+x.className="alert-success";
+msg.innerHTML="You are successfully add new sale data!"
+  setTimeout(function(){// wait for 5 secs(2)
+       location.reload(); // then reload the page.(3)
+  }, 2000); 
+
+} else {
+x.style.display = "none";
+}
+  // setTimeout(function(){// wait for 5 secs(2)
+  //      location.reload(); // then reload the page.(3)
+  // }, 1000); 
+}
+else{
+var x = document.getElementById("success");
+                            var msg = document.getElementById("successmsg");
+if (x.style.display === "none") {
+x.style.display = "block";
+x.className = "alert-danger";
+msg.innerHTML="Something is wrong please try later!"
+  setTimeout(function(){// wait for 5 secs(2)
+       location.reload(); // then reload the page.(3)
+  }, 2000); 
+
+} else {
+x.style.display = "none";
+}
+
+}
+                        }
+                    });
+                }
+                function sendTblDataToServer()
+                {
+                    var TableData;
+                    TableData = JSON.stringify(storeTblValues());
+                    $('#tbSendTblDataToServer').val('JSON array to send to server: <br<br>' + TableData.replace(/},/g, "},<br>"));
+        
+                    $.ajax({
+                        type: "POST",
+                        url: "/addnewtransaction",
+                        data: "pTableData=" + TableData,    // post TableData to server script
+        
+                        success: function (msg) {
+                            // return value stored in msg variable 
+                            $('#tbServerResponse').html('Server Response:<br><br><pre>' + msg + '</pre>');
+                        }
+                    });
+                  
+                }
+        
+        
+            </script>
+     
+       <script type="text/javascript">
+    
+     var arrHead = new Array();	// array for header.
+arrHead = ['', 'ProductCode','Description', 'UnitPrice','Quanity/PRS', 'Total','CustomerName','PaymentOption','TransactionId','BankAccount','ContainerNo'];
+
+// first create TABLE structure with the headers. 
+function createTable() {
+  //document.getElementById("procode").focus();
+    var empTable = document.createElement('table');
+    empTable.setAttribute('id', 'empTable'); // table id.
+    empTable.style.className ="table table-striped project-orders-table";
+
+    var tr = empTable.insertRow(-1);
+    for (var h = 0; h < arrHead.length; h++) {
+        var th = document.createElement('th'); // create table headers
+        th.innerHTML = arrHead[h];
+      
+        tr.appendChild(th);
+    }
+
+    var div = document.getElementById('cont');
+    div.appendChild(empTable);  // add the TABLE to the container.
+}
+var subtotal =0;
+// now, add a new to the TABLE.
+function addRow() {
+  
+            var containernumber =document.getElementById('containernumber').value;
+            var productcode =document.getElementById('productcode').value;
+            var qtyperbox =document.getElementById('qtyperbox').value;
+            var quantity =document.getElementById('quantity').value;
+            var unitprice =   document.getElementById('unitprice').value;
+            var currqty = document.getElementById('currentquantity').value;
+            var paymentoption = document.getElementById('paymentoption').value;
+            var quantityinpair = quantity * qtyperbox ;
+            if(!unitprice.length || ! containernumber.length || !productcode.length || !quantity.length)
+            {
+              var x = document.getElementById("success");
+                            var msg = document.getElementById("successmsg");
+if (x.style.display === "none") {
+x.style.display = "block";
+x.className="alert-danger";
+msg.innerHTML="Please enter the all the required fields to add."
+  setTimeout(function(){// wait for 5 secs(2)
+    x.style.display = "none";
+  }, 2000); 
+
+} else {
+x.style.display = "none";
+}
+            }
+          else  if(parseInt(quantityinpair) > parseInt(currqty))
+            {
+              var x = document.getElementById("success");
+                            var msg = document.getElementById("successmsg");
+if (x.style.display === "none") {
+x.style.display = "block";
+x.className="alert-danger";
+msg.innerHTML="Please update quantity first."
+  setTimeout(function(){// wait for 5 secs(2)
+    x.style.display = "none";
+  }, 2000); 
+
+} else {
+x.style.display = "none";
+}
+            }
+          else if(containernumber =="0" || paymentoption =="0")
+            {
+              var x = document.getElementById("success");
+                            var msg = document.getElementById("successmsg");
+if (x.style.display === "none") {
+x.style.display = "block";
+x.className="alert-danger";
+msg.innerHTML="Please select payment option or container number."
+setTimeout(function(){// wait for 5 secs(2)
+    x.style.display = "none";
+  }, 2000); 
+
+} else {
+x.style.display = "none";
+}
+            }
+       else{
+          var tot = unitprice * quantity * qtyperbox;
+          var total  =  parseFloat(tot);
+         
+          subtotal +=total ;
+        
+          // document.getElementById('total').innerHTML = subtotal;
+      
+    var empTab = document.getElementById('empTable');
+
+    var rowCnt = empTab.rows.length;   // table row count.
+    var tr = empTab.insertRow(rowCnt); // the table row.
+  //  tr.setAttribute('class','data');
+    tr = empTab.insertRow(rowCnt);
+
+    for (var c = 0; c < arrHead.length; c++) {
+        var td = document.createElement('td'); // table definition.
+        td = tr.insertCell(c);
+
+        if (c == 0) {      // the first column.
+            // add a button in every new row in the first column.
+            var button = document.createElement('input');
+
+            // set input attributes.
+            button.setAttribute('type', 'button');
+            button.setAttribute('value', 'X');
+          
+         
+            button.style.fontweight="bold";
+            button.style.background=" #e0e0e0";
+            button.style.borderRadius="1%";
+            button.style.borderWidth="0";
+            button.style.display ="inline-block";
+           // button.style.backgroundColor ="red";
+            button.setAttribute('onmouseover', 'hovers(this)');
+            
+         button.setAttribute('onmouseout','hoverends(this)')
+            // add button's 'onclick' event.
+            button.setAttribute('onclick', 'removeRow(this)');
+
+            td.appendChild(button);
+        }
+    
+        else if(c ==1){
+            // 2nd, 3rd and 4th column, will have textbox.
+            var procode = document.getElementById('productcode').value;
+          
+
+         var ele = document.createElement('td');
+            td.style.width= "150px";
+            td.innerHTML=procode ;
+          //  td.appendChild(ele);
+        }
+        else if(c==2){
+          var prodesc =document.getElementById('prodescription').value;
+          var prosize =document.getElementById('productsize').value;
+          
+          var ele = document.createElement('td');
+       
+            td.style.width= "150px";
+            td.innerHTML = prodesc + "/" + prosize;
+           // td.appendChild(ele);
+        }
+        else if(c==3){
+          var unitprice =document.getElementById('unitprice').value;
+         
+          var ele = document.createElement('td');
+       
+            td.style.width= "150px";
+            td.innerHTML = unitprice;
+           // td.appendChild(ele);
+        }
+        else if(c==4){
+          var quantity =document.getElementById('quantity').value;
+          var qtyperctn =document.getElementById('qtyperbox').value;
+       
+         //   var proprice =document.getElementById('price').value;
+          var ele = document.createElement('td');
+         // ele.setAttribute('type', 'text');
+           //  ele.setAttribute('disabled', 'disabled');
+           //  ele.setAttribute('value', proqty);
+            // ele.setAttribute('type', 'text');
+            // ele.setAttribute('value', proid + "X" + proprice);
+            var total  =  quantity * qtyperbox;
+       
+            td.innerHTML = total;
+            td.style.width= "150px";
+          //  td.appendChild(ele);
+        }
+        else if(c==5){
+        
+          var proqty =document.getElementById('quantity').value;
+            var proprice =document.getElementById('unitprice').value;
+            var qtyperctn =document.getElementById('qtyperbox').value;
+         
+          var ele = document.createElement('td');
+
+          var total  = proqty * proprice *qtyperbox ;
+       
+          
+            td.innerHTML = total ;
+           // td.appendChild(ele);
+        }
+        else if(c==6){
+        
+        var customername =document.getElementById('customername').value;
+        
+        var ele = document.createElement('td');
+
+       
+          td.innerHTML = customername ;
+         // td.appendChild(ele);
+      }
+      else if(c==7){
+        
+        var paymentoption =document.getElementById('paymentoption').value;
+        
+        var ele = document.createElement('td');
+
+      
+        
+          td.innerHTML = paymentoption ;
+         // td.appendChild(ele);
+      }
+      else if(c==8){
+        
+        var transactionid =document.getElementById('transactionnumber').value;
+        
+        var ele = document.createElement('td');
+
+    
+     
+        
+          td.innerHTML = transactionid ;
+         // td.appendChild(ele);
+      }
+      else if(c==9){
+        var bankaccount
+         bankaccount =document.getElementById('bankaccount').value;
+      
+        var ele = document.createElement('td');
+
+        
+          td.innerHTML = bankaccount ;
+         // td.appendChild(ele);
+      }
+      else if(c==10){
+        var containerid =document.getElementById('containernumber').value;
+      
+        var ele = document.createElement('td');
+
+        
+          td.innerHTML = containerid ;
+         // td.appendChild(ele);
+      }
+        
+    }
+
+   
+  }
+
+  }
+
+
+
+
+
+function hovers(x){
+              x.style.backgroundColor ="red";
+            }
+function hoverends(x){
+              x.style.backgroundColor ="#e0e0e0";
+            }
+
+// delete TABLE row function.
+function removeRow(oButton) {
+    var empTab = document.getElementById('empTable');
+    var rowindex = oButton.parentNode.parentNode.rowIndex;
+   
+   var element= document.getElementById("empTable").rows[rowindex].cells[5];
+          //  //    var total =    element.childNodes[0].value ;
+          //       parseFloat(total);
+          //        subtotal -=total ;
+          // var vat = subtotal * 0.15;
+          // document.getElementById('subtotal').innerHTML = subtotal;
+          // document.getElementById('vat').innerHTML = vat;
+          // document.getElementById('total').innerHTML = subtotal + vat;
+  //  if (element.innerHTML == 'text') {
+// var total =    element.innerHTML ;
+//                 parseFloat(total);
+//                  subtotal -=total ;
+//           var vat = subtotal * 0.15;
+//           document.getElementById('subtotal').innerHTML = subtotal;
+//           document.getElementById('vat').innerHTML = vat;
+//           document.getElementById('total').innerHTML = subtotal + vat;
+  //           }
+    empTab.deleteRow(oButton.parentNode.parentNode.rowIndex); // button -> td -> tr.
+    
+    // subtotal =56 ;
+    //       var vat = subtotal * 0.15;
+    //       document.getElementById('subtotal').innerHTML = subtotal;
+    //       document.getElementById('vat').innerHTML = vat;
+    //       document.getElementById('total').innerHTML = subtotal + vat;
+}
+
+// function to extract and submit table data.
+function submit() {
+    var myTab = document.getElementById('empTable');
+    var arrValues = new Array();
+
+    // loop through each row of the table.
+    for (row = 1; row < myTab.rows.length - 1; row++) {
+      // loop through each cell in a row.
+        for (c = 0; c < myTab.rows[row].cells.length; c++) {  
+            var element = myTab.rows.item(row).cells[c];
+            if (element.childNodes[0].getAttribute('type') == 'text') {
+                arrValues.push("'" + element.childNodes[0].value + "'");
+            }
+        }
+    }
+    
+    // The final output.
+    document.getElementById('output').innerHTML = arrValues;
+    //console.log (arrValues);   // you can see the array values in your browsers console window. Thanks :-) 
+}
+
+        </script>
+        <!-- content-wrapper ends -->
+        <!-- partial:partials/_footer.html -->
+        <footer class="footer">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-sm-flex justify-content-center justify-content-sm-between">
+                        <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2022 <a href="https://www.techlinktechnologies.com/" class="text-muted" target="_blank"></a>. All rights reserved.</span>
+                        <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center text-muted"> <a href="https://www.techlinktechnologies.com/" class="text-muted" target="_blank"> </a> TechLinkTechnologies</span>
+                    </div>
+                </div>    
+            </div>        
+        </footer>
+        <!-- partial -->
+      </div>
+      <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+  </div>
+  <!-- container-scroller -->
+
+  <!-- base:js -->
+  <script src="../vendors/js/vendor.bundle.base.js"></script>
+  <!-- endinject -->
+  <!-- Plugin js for this page-->
+  <script src="../vendors/chart.js/Chart.min.js"></script>
+  <!-- End plugin js for this page-->
+  <!-- inject:js -->
+  <script src="../js/off-canvas.js"></script>
+  <script src="js/hoverable-collapse.js"></script>
+  <script src="js/template.js"></script>
+  <script src="js/settings.js"></script>
+  <script src="js/todolist.js"></script>
+  <!-- endinject -->
+  <!-- Custom js for this page-->
+  <script src="../js/dashboard.js"></script>
+  <!-- End custom js for this page-->
+</body>
+
+</html>
+
