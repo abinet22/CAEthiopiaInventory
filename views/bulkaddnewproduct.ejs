@@ -17,7 +17,7 @@
   <!-- endinject -->
   <link rel="shortcut icon" href="images/favicon.png" />
 </head>
-<body >
+<body onload="createTable();">
  
   <div class="container-scroller">
     <!-- partial:partials/_navbar.html -->
@@ -230,7 +230,7 @@
                       
                         </div>
                       </form>
-                  
+                      <button class="btn btn-block btn-primary"  onclick="addRow();" >Load Data</button>
                     </div>
                     </div>
                   </div>
@@ -249,78 +249,7 @@
               <i class="fa fa-shopping-cart fa-3x" aria-hidden="true" style="color: #82ca9c;"></i>
                     </div>
                     <div class="cart table-responsive pt-3" id="cont">
-                      <div class="table-responsive pt-3">
-                        <table class="table table-striped project-orders-table" id="empTable">
-                          <thead>
-                            <tr>
-                              <th class="ml-5">#</th>
-                              <th>INVENTORY ID.</th>
-                              <th>CTNS NO.</th>
-                              <th>CONTAINER NO.</th>
-                              <th>Product CODE</th>
-                              <th>Product Description</th>
-                              <th>Product SIZE</th>
-                              <th>NUMBER OF CTNS</th>
-                              <th>QUANTITY PER BOX</th>
-                              <th>UNIT</th>
-                              <th>TOTAL QUANTITY</th>
                   
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <% if (newproductlist.length >0){ %>
-                                <% var i =0; %> 
-                              <% newproductlist.forEach(function(row){ %>
-                                <% i++ ; %>
-                               <tr>
-                                  <td># <%= i %></td>
-                                  <td style="text-transform: uppercase;">
-                                    <%= row[0] %> 
-                                  </td>
-                                  <td style="text-transform: uppercase;">
-                                    <%= row[1] %> 
-                                 
-                                  </td>
-                                  <td style="text-transform: uppercase;">
-                                 
-                                    <%= row[2] %>   
-                                  </td>
-                                  <td style="text-transform: uppercase;">
-                                 
-                                    <%= row[3] %>   
-                                  </td>
-                                  <td style="text-transform: uppercase;">
-                                 
-                                    <%= row[4] %>   
-                                  </td>
-                                  <td> <%= row[5] %></td>
-                                  <td>
-                                    <%= row[6] %>  
-                                 
-                                  </td>
-                                  <td>
-                                    <%= row[7] %>  
-                                 
-                                  </td>
-                                  <td>
-                                    <%= row[8] %>  
-                                 
-                                  </td>
-                                  <td>
-                                    <%= row[9] %>  
-                                 
-                                  </td>
-                              
-                                </tr>
-      
-                                <% })} else { %>
-                            
-                          <%  } %>
-                         
-                      
-                          </tbody>
-                        </table>
-                      </div>
                    
                     </div>
                     
@@ -339,9 +268,12 @@
                   </div>
                  </div>
               </div> 
+              <div >
+
+              </div>
             
-            
-            </div>
+        
+          </div>
           
            </div>
 
@@ -391,21 +323,24 @@ return true;
     var col10_value=currentRow.find("td:eq(10)").text();
  
      var obj={};
-    obj.inventory=col1_value;
-    obj.cartonnumber=col2_value;
-    obj.containerid=col3_value;
-    obj.productcode=col4_value;
-    obj.productdescription=col5_value;
-    obj.productsize=col6_value;
-    obj.totalcarton=parseFloat(col7_value);
-    obj.quantity=parseFloat(col8_value);
-    obj.unit=col9_value;
+    obj.cartonnumber =col1_value;
+    obj. containerid =col2_value;
+    obj. productcode =col3_value;
+    obj.productsize=col4_value;
+    obj.totalcarton=parseFloat(col5_value);
+    obj.quantity=parseFloat(col6_value);
+    obj.unit=col7_value;
+    obj.totalamount =parseFloat(col8_value);
   
-    obj.totalamount=parseFloat(col10_value);
+    obj.inventory=col9_value;
+  
+    obj.productdescription =col10_value;
  
  
 
     TableData.push(obj);
+
+    console.log(obj);
   }
 
     
@@ -428,7 +363,7 @@ return true;
                        TableData =  JSON.stringify(storeTblValues());
                       //  $('#tbConvertToJSON').html('<br>JSON array: <br>' + TableData.replace(/},/g, "},<br>"));
             
-          //  console.log(TableData);
+         
           $.ajax({
                             type: "POST",
                             url: "/addnewinventorylist",
@@ -471,7 +406,8 @@ return true;
    }
                             }
                         });
-                    }
+                   
+                      }
                     function sendTblDataToServer()
                     {
                         var TableData;
@@ -497,7 +433,7 @@ return true;
            <script type="text/javascript">
         var selectedinventory;
          var arrHead = new Array();	// array for header.
-    arrHead = ['','Inventory', 'CTNS_NO','Container_ID','Product_Code','Description','Product_Size', 'Ctns','QTy_Box', 'Unit','Total_QTY','Buying_Price','Additional_Cost','Selling_Price'];
+    arrHead = ['', 'CTNS_NO','Container_ID','Product_Code','Product_Size', 'NUMBER_OF_CTNS','QUANTITY_PER_BOX', 'Unit','Total_QTY','Inventory_Name','Description'];
     
 
     // first create TABLE structure with the headers. 
@@ -515,23 +451,29 @@ return true;
 
         var div = document.getElementById('cont');
         div.appendChild(empTable); 
-        addRow();
+       // addRow();
         // add the TABLE to the container.
     }
     var subtotal =0;
     // now, add a new to the TABLE.
     function addRow() {
       
-    
-          
-        var empTab = document.getElementById('empTable');
+        
+          var inventory ;
+      
+       let inventoryobj= '<%- JSON.stringify(newproductlist) %>'; 
+       inventory =  JSON.parse(inventoryobj);
+       // inventory.push(xy);
+        console.log(inventory);
+        for(var i = 0; i < inventory.length; i++)
+{
+  var empTab = document.getElementById('empTable');
 
-        var rowCnt = empTab.rows.length;   // table row count.
-        var tr = empTab.insertRow(rowCnt); // the table row.
-      //  tr.setAttribute('class','data');
-        tr = empTab.insertRow(rowCnt);
-
-        for (var c = 0; c < arrHead.length; c++) {
+var rowCnt = empTab.rows.length;   // table row count.
+var tr = empTab.insertRow(rowCnt); // the table row.
+//  tr.setAttribute('class','data');
+tr = empTab.insertRow(rowCnt);
+  for (var c = 0; c < arrHead.length; c++) {
             var td = document.createElement('td'); // table definition.
             td = tr.insertCell(c);
 
@@ -568,11 +510,11 @@ return true;
    
                 td.style.width= "100px";
                 td.className="md-5";
-                td.innerHTML=selectedinventory ;
+                td.innerHTML=inventory[i].cartonno ; 
               //  td.appendChild(ele);
             }
             else if(c==2){
-              var cartonnumber =document.getElementById('cartonnumber').value;
+              var cartonnumber =inventory[i].containerid;
               
               var ele = document.createElement('td');
           
@@ -583,7 +525,7 @@ return true;
                // td.appendChild(ele);
             }
             else if(c==3){
-              var containernumber =document.getElementById('containernumber').value;
+              var containernumber =inventory[i].procode;
              
              
 
@@ -593,17 +535,17 @@ return true;
                // td.appendChild(ele);
             }
             else if(c==4){
-              var productcode  =document.getElementById('productcode').value;
+              var productcode  =inventory[i].prosize;
              //   var proprice =document.getElementById('price').value;
               var ele = document.createElement('td');
          
-                td.innerHTML = productcode;
+                td.innerHTML =productcode;
                 td.className="md-5";
                 td.style.width= "100px";
               //  td.appendChild(ele);
             }
             else if(c==5){
-              var productdescription =document.getElementById('productdescription').value;
+              var productdescription = inventory[i].noofcrtn;
              //   var proprice =document.getElementById('price').value;
               var ele = document.createElement('td');
          
@@ -613,7 +555,7 @@ return true;
               //  td.appendChild(ele);
             }
             else if(c==6){
-              var productsize =document.getElementById('productsize').value;
+              var productsize =inventory[i].qtypercrtn;
              //   var proprice =document.getElementById('price').value;
               var ele = document.createElement('td');
          
@@ -624,7 +566,7 @@ return true;
             }
             else if(c==7){
               
-              var totalcarton =document.getElementById('totalcarton').value;
+              var totalcarton =inventory[i].unit;
              //   var proprice =document.getElementById('price').value;
               var ele = document.createElement('td');
          
@@ -634,11 +576,11 @@ return true;
               //  td.appendChild(ele);
             }
             else if(c==8){
-              var quantity =document.getElementById('quantity').value;
+              var quantity =inventory[i].qty;
              //   var proprice =document.getElementById('price').value;
               var ele = document.createElement('td');
          
-                td.innerHTML = quantity;
+              td.innerHTML = quantity;
                 td.className="md-2";
                 td.style.width= "100px";
               //  td.appendChild(ele);
@@ -646,19 +588,17 @@ return true;
             else if(c==9){
             //  var buyingprice =document.getElementById('buyingprice').value;
              //   var proprice =document.getElementById('price').value;
-              var ele = document.createElement('td');
-         
-                td.innerHTML = "PRS";
+             var prodesc =inventory[i].inventoryname;
+           
+           td.innerHTML = prodesc;
                 td.className="md-2";
                 td.style.width= "100px";
               //  td.appendChild(ele);
             }
             else if(c==10){
-              var quantity =document.getElementById('quantity').value;
-                var totalcarton =document.getElementById('totalcarton').value;
-              var ele = document.createElement('td');
-           var totalamount = quantity * totalcarton ;
-                td.innerHTML = totalamount;
+              var quantity =inventory[i].prodesc;
+           
+                td.innerHTML = quantity;
                 td.style.width= "100px";
                 td.className="md-2";
               //  td.appendChild(ele);
@@ -670,6 +610,9 @@ return true;
         }
    
        
+
+}
+     
       }
    
       
@@ -689,16 +632,6 @@ return true;
     function removeRow(oButton) {
         var empTab = document.getElementById('empTable');
         var rowindex = oButton.parentNode.parentNode.rowIndex;
-       
-       var element= document.getElementById("empTable").rows[rowindex].cells[5];
-          
-    var total =    element.innerHTML ;
-                    parseFloat(total);
-                     subtotal -=total ;
-              var vat = subtotal * 0.15;
-              document.getElementById('subtotal').innerHTML = subtotal;
-              document.getElementById('vat').innerHTML = vat;
-              document.getElementById('total').innerHTML = subtotal + vat;
       //           }
         empTab.deleteRow(oButton.parentNode.parentNode.rowIndex); // button -> td -> tr.
         

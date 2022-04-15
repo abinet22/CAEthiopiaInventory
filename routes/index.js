@@ -37,9 +37,49 @@ else{
 });
 
 });
-router.get('/addaccount', ensureAuthenticated, (req, res) => res.render('addaccount',{user:req.user}));
-router.get('/addcustomer', ensureAuthenticated, (req, res) => res.render('addcustomer',{user:req.user}));
-router.get('/addinventory', ensureAuthenticated, (req, res) => res.render('addinventory',{user:req.user}));
+router.get('/addaccount', ensureAuthenticated,async function (req, res) {
+connection.query("select * from account",function(error,results,fields)
+{
+  if(error){
+
+  }
+  else
+  {
+    res.render('addaccount',{user:req.user,
+      account:results
+    })
+  }
+})
+
+});
+router.get('/addcustomer', ensureAuthenticated, async function(req, res) {
+  connection.query("select * from customer",function(error,results,fields)
+  {
+    if(error){
+  
+    }
+    else
+    {
+      res.render('addcustomer',{user:req.user,
+        account:results
+      })
+    }
+  })
+});
+router.get('/addinventory', ensureAuthenticated,async function (req, res) {
+  connection.query("select * from inventory",function(error,results,fields)
+  {
+    if(error){
+  
+    }
+    else
+    {
+      res.render('addinventory',{user:req.user,
+        account:results
+      })
+    }
+  })
+});
 router.get('/addsales', ensureAuthenticated, async function(req, res) { 
 
   var containernumber = [];
@@ -107,7 +147,21 @@ router.get('/bulkaddnewproduct', ensureAuthenticated, async function(req, res) {
   })
 
 });
-router.get('/adduser', ensureAuthenticated, (req, res) => res.render('adduser',{user:req.user}));
+router.get('/adduser', ensureAuthenticated, async function (req, res){ 
+  connection.query("select * from users",function(error,results,fields)
+  {
+    if(error){
+  
+    }
+    else
+    {
+      res.render('adduser',{user:req.user,
+        account:results,
+
+      })
+    }
+  })
+});
 router.get('/inventorytransaction', ensureAuthenticated, async function(req, res) {
   connection.query("select * from productlist",function(error,results,fields)
   {
@@ -127,7 +181,8 @@ router.get('/salestransaction', ensureAuthenticated, async function (req, res) {
    res.render('salestransaction',{user:req.user})
 
 });
-router.get('/data', ensureAuthenticated, (req, res) => res.render('data',{user:req.user}));
+
+
 router.get('/addpayment', ensureAuthenticated, async function(req, res) {
   var queries = [
     'select * from creditlog order by createdat desc',
@@ -210,9 +265,20 @@ router.post('/addnewaccount', ensureAuthenticated, async function(req, res)
       }
       else
       {
-        res.render('addaccount',{user:req.user,
-        success_msg:'You Are Successfully Add New Bank Account!'
-        });
+        connection.query("select * from account",function(error,results,fields)
+        {
+          if(error){
+        
+          }
+          else
+          {
+            res.render('addaccount',{user:req.user,
+              account:results,
+              success_msg:'You Are Successfully Add New Bank Account!'
+            })
+          }
+        })
+      
       }
     })
   
@@ -240,6 +306,7 @@ router.post('/addnewcustomer', ensureAuthenticated, async function(req, res){
       nsecs: 5678,
     };
     customerid = uuidv4(v1options);
+    
     var sql_query = "Insert into customer (customerid,customername,customeraddress,customerphone,intialbalance) values (?,?,?,?,?)";
   connection.query("select * from customer where customername='"+ customername +"'",
   function(error,results,fields){
@@ -247,14 +314,14 @@ router.post('/addnewcustomer', ensureAuthenticated, async function(req, res){
      if(error)
      {
        console.log(error)
-      res.render('addaccount',{user:req.user,
+      res.render('addcustomer',{user:req.user,
         error_msg:'Connection Error Please Try Later!'
         });
      }
      else if(results.length > 0)
      {
     
-      res.render('addaccount',{user:req.user,
+      res.render('addcustomer',{user:req.user,
         error_msg:'Customer Name Already Registered Please Make It Unique!'
         });
      }
@@ -265,15 +332,26 @@ router.post('/addnewcustomer', ensureAuthenticated, async function(req, res){
       if(error)
       {
         console.log(error);
-        res.render('addaccount',{user:req.user,
+        res.render('addcustomer',{user:req.user,
           error_msg:'Connection Error Please Try Later!'
           });
       }
       else
       {
-        res.render('addaccount',{user:req.user,
-        success_msg:'You Are Successfully Add New Customer Info!'
-        });
+        connection.query("select * from customer",function(error,results,fields)
+        {
+          if(error){
+        
+          }
+          else
+          {
+            res.render('addcustomer',{user:req.user,
+              account:results,
+              success_msg:'You Are Successfully Add New Customer Info!'
+            })
+          }
+        })
+       
       }
     })
 
@@ -320,9 +398,20 @@ router.post('/addnewinventory', ensureAuthenticated, async function(req, res) {
       }
       else
       {
-        res.render('addinventory',{user:req.user,
-        success_mgs:'You Are Successfully Add New Inventory Info!'
-        });
+        connection.query("select * from inventory",function(error,results,fields)
+        {
+          if(error){
+        
+          }
+          else
+          {
+            res.render('addinventory',{user:req.user,
+              account:results,
+              success_mgs:'You Are Successfully Add New Inventory Info!'
+            })
+          }
+        })
+      
       }
     })
   
@@ -400,9 +489,10 @@ else if( password != repassword)
               bcrypt.hash(password, salt, (err, hash) => {
                 if (err) throw err;
               var  newpassword = hash;
-              connection.query('Insert into users(username,password,userroll,email,userid,isactive) values(?,?,?,?,?) ', [username,newpassword,userroll,email,userid,"Yes"], function(error, results, fields) {
+              connection.query('Insert into users(username,password,userroll,email,userid,isactive) values(?,?,?,?,?,?) ', [username,newpassword,userroll,email,userid,"Yes"], function(error, results, fields) {
                   if (error) 
                       {
+                        console.log(error);
                         res.render('adduser',{
                           userlist:userlist,
                           error_msg:'Something is wrong please try later',user:req.user
@@ -410,10 +500,21 @@ else if( password != repassword)
                       }
                   else
                   {
-                    res.render('adduser',{
-                      userlist:userlist,
-                      success_msg:'You are successfully add new system user',user:req.user
+                    connection.query("select * from users",function(error,results,fields)
+                    {
+                      if(error){
+                    
+                      }
+                      else
+                      {
+                        res.render('adduser',{user:req.user,
+                          account:results,
+                          success_msg:'You are successfully add new system user',user:req.user
+                 
+                        })
+                      }
                     })
+                 
                   }
                  
               });
@@ -556,6 +657,7 @@ const postdate = new Date();
   var inventory = [];
 const copyItems = [];
 myObj = JSON.parse(pTableData);
+
 for (let i = 0; i < myObj.length; i++) {
   copyItems.push(myObj[i]);
 }
@@ -647,7 +749,7 @@ res.json({messages:'success'});
 router.post('/uploadinventorydata', ensureAuthenticated,uploadFile.single("inventorydata"), async function (req, res) {
   //importExcelData2MySQL( __dirname + "../../uploads/"  + req.file.filename);
   const{invnetoryname,containernumber} = req.body;
-  console.log(invnetoryname);
+  //console.log(invnetoryname);
 
 
   var exceldata = [];
@@ -668,9 +770,11 @@ else{
   readXlsxFile(path.join(__dirname,"../uploads/",req.file.filename)).then((rows) => {
     // `rows` is an array of rows
     // each row being an array of cells.     
-   // console.log(rows);
-   
+   // console.log(rows);e
+  // var datas = JSON.stringify(e);
+  // console.log(datas);
     rows.shift();
+    var newvarobj = [];
     var sql1 = "INSERT INTO productlist (invnetoryname, cartonnumber, containernumber,productcode, productdescription, productsize, noofcarton, quantitypercarton, unit, currentquantity,ischecked"+
     ") VALUES(?,?,?,?,?,?,?,?,?,?,?)";
     var sql2 = "INSERT INTO productlog (invnetoryname, cartonnumber, containernumber,productcode, productdescription, productsize, noofcarton, quantitypercarton, unit, currentquantity"+
@@ -678,12 +782,33 @@ else{
 
     rows.forEach((row) => {
 
-        var valuesplist = [ invnetoryname, row[0],containernumber,row[1],row[2],row[3],row[4],row[5],row[6],row[7],"No"];
+      var crtnno = row[0];
+      var procode =row[1];
+      var prodes =row[2];
+      var nocrtn =row[3];
+      var qtypercrtn =row[4];
+      var qty =row[5];
+      var prosize =row[6];
+console.log(row[6]);
 
-        var valuespl =[ invnetoryname, row[0],containernumber,row[1],row[2],row[3],row[4],row[5],row[6],row[7],new Date()];
+    var bigo = {}
+    bigo.inventoryname = invnetoryname;
+    bigo.cartonno = crtnno;
+    bigo.containerid = containernumber;
+    bigo.procode = procode;
+    bigo.prodesc = prodes;
+    bigo.prosize = prosize;
+    bigo.noofcrtn = nocrtn;
+    bigo.qtypercrtn = qtypercrtn;
+    bigo.unit = "PRS";
+    bigo.qty = qty;
+        var valuesplist = [ invnetoryname, String(crtnno),containernumber,String(procode),String(prodes),String(prosize),parseInt(nocrtn),parseInt(qtypercrtn),"PRS",parseInt(qty)];
+
+        var valuespl =[ invnetoryname, String(crtnno),containernumber,String(procode),String(prodes),String(prosize),parseInt(nocrtn),parseInt(qtypercrtn),"PRS",parseInt(qty),new Date()];
       
-        exceldata.push(valuesplist);
+        newvarobj.push(bigo);
       
+        console.log(newvarobj);
         // connection.query(sql1, valuesplist, (error, response) => {
         //     // console.log(error || response);
         //     // console.log(response.message);
@@ -747,14 +872,14 @@ else{
         //     });
 
     });
-     
-   console.log(exceldata);
+   
+  
     res.render('bulkaddnewproduct',{user:req.user,
       inventorylist:'',
       containernumber:'',
       customerlist:'',
       account:'',
-      newproductlist:exceldata
+      newproductlist:newvarobj
 
     })
     });
@@ -801,6 +926,8 @@ router.post('/addnewtransaction',async function(req,res)
 
 const copyItems = [];
 myObj = JSON.parse(pTableData);
+console.log(myObj);
+console.log(pTableData);
 for (let i = 0; i < myObj.length; i++) {
   copyItems.push(myObj[i]);
 }
@@ -906,14 +1033,6 @@ res.json({messages:'success'});
 
    
 });
-
-
-
-
-
-
-
-
 
 
 
@@ -1030,7 +1149,7 @@ router.post('/populateinventorylist',async function(req,res)
   var recordsFiltered=0;
   // var skip = (page-1) * req.body.draw; 
   // var limit = skip + ',' + numPerPage; 
-  connection.query("Select count(*) AS namesCount from productlog where  containernumber LIKE "+"'"+ searchStr +"%' ORDER BY currentquantity DESC", function(error, rows, fields) {
+  connection.query("Select count(*) AS namesCount from productlist where  productcode LIKE "+"'"+ searchStr +"%' ORDER BY currentquantity DESC", function(error, rows, fields) {
     if (error) 
         {
             console.log(error);
@@ -1042,7 +1161,7 @@ router.post('/populateinventorylist',async function(req,res)
       console.log(recordsFiltered);
        console.log(req.body.draw);
         console.log(req.body.length);
-       connection.query("SELECT *  FROM productlog where containernumber LIKE "+"'"+ searchStr +"%'"+" ORDER BY currentquantity DESC LIMIT "+req.body.start +","+ req.body.length +""
+       connection.query("SELECT *  FROM productlist where productcode LIKE "+"'"+ searchStr +"%'"+" ORDER BY currentquantity DESC LIMIT "+req.body.start +","+ req.body.length +""
        , function (error, results,fields) {
                if (error) {
                    console.log('error while getting results'+error);
@@ -1078,4 +1197,312 @@ router.get('/downloadinventorytemplate', function(req, res){
   res.download(file); // Set disposition and send it.
 });
 
+router.post('/deletecustomer/(:customerid)',ensureAuthenticated,async function(req,res){
+var qrydt = "delete  from customer where customerid='"+req.params.customerid+"'";
+connection.query(qrydt,function(error,results,fields){
+  if(error)
+  {
+
+  }
+  connection.query("select * from customer",function(error,results,fields)
+  {
+    if(error){
+  
+    }
+    else
+    {
+      res.render('addcustomer',{user:req.user,
+        account:results,
+        success_msg:'You Are Successfully  Delete Customer Info!'
+      })
+    }
+  })
+})
+
+});
+router.post('/deleteaccount/(:accountid)',ensureAuthenticated,async function(req,res){
+
+var qrydt = "delete  from account where accountid='"+req.params.accountid+"'";
+connection.query(qrydt,function(error,results,fields){
+  if(error)
+  {
+
+  }
+  connection.query("select * from account",function(error,results,fields)
+  {
+    if(error){
+  
+    }
+    else
+    {
+      res.render('addaccount',{user:req.user,
+        account:results,
+        success_msg:'You Are Successfully  Delete Account Info!'
+      })
+    }
+  })
+})
+});
+router.post('/deleteinventory/(:inventoryid)',ensureAuthenticated,async function(req,res){
+ 
+  var qrydt = "delete from inventory where inventoryid='"+req.params.inventoryid+"'";
+connection.query(qrydt,function(error,results,fields){
+  if(error)
+  {
+
+  }
+  connection.query("select * from inventory",function(error,results,fields)
+  {
+    if(error){
+  
+    }
+    else
+    {
+      res.render('addinventory',{user:req.user,
+        account:results,
+        success_msg:'You Are Successfully  Delete Inventory Info!'
+      })
+    }
+  })
+})
+  });
+  router.post('/deleteuser/(:userid)',ensureAuthenticated,async function(req,res){
+ 
+    var qrydt = "delete  from users where userid='"+req.params.userid+"'";
+  connection.query(qrydt,function(error,results,fields){
+    if(error)
+    {
+  
+    }
+    connection.query("select * from users",function(error,results,fields)
+    {
+      if(error){
+    
+      }
+      else
+      {
+        res.render('adduser',{user:req.user,
+          account:results,
+          success_msg:'You Are Successfully  Delete User Info!'
+        })
+      }
+    })
+  })
+    });
+    router.get('/editcustomer/(:customerid)',ensureAuthenticated,async function(req,res){
+      connection.query("select * from customer",function(error,results,fields)
+      {
+        if(error){
+      
+        }
+        else
+        {
+          res.render('editcustomer',{user:req.user,
+            account:results,
+            updatedid:req.params.customerid
+          })
+        }
+      })
+    
+    });
+    router.get('/editaccount/(:accountid)',ensureAuthenticated,async function(req,res){
+      connection.query("select * from account",function(error,results,fields)
+      {
+        if(error){
+      
+        }
+        else
+        {
+          res.render('editaccount',{user:req.user,
+            account:results,
+            updatedid:req.params.accountid
+          })
+        }
+      })
+    
+    });
+    router.get('/editinventory/(:inventoryid)',ensureAuthenticated,async function(req,res){
+      connection.query("select * from inventory",function(error,results,fields)
+      {
+        if(error){
+      
+        }
+        else
+        {
+          res.render('editinventory',{user:req.user,
+            account:results,
+            updatedid:req.params.inventoryid
+          })
+        }
+      })
+      
+      });
+      router.get('/edituser/(:userid)',ensureAuthenticated,async function(req,res){
+        connection.query("select * from users",function(error,results,fields)
+        {
+          if(error){
+        
+          }
+          else
+          {
+            res.render('edituser',{user:req.user,
+              account:results,
+              updatedid:req.params.userid
+            })
+          }
+        })
+      
+      });
+  router.post('/editcustomer/(:customerid)',ensureAuthenticated,async function(req,res){
+
+     const{intialbalance,customerphone} = req.body;
+    var qdludt = "update customer set intialbalance= '"+intialbalance+"',customerphone='"+customerphone+"' where customerid ='"+req.params.customerid+"'";
+    connection.query(qdludt,function(error,results,fields){
+      if(error)
+      {
+
+      }
+      connection.query("select * from customer",function(error,results,fields)
+      {
+        if(error){
+      
+        }
+        else
+        {
+          res.render('editcustomer',{user:req.user,
+            account:results,
+            updatedid:req.params.customerid,
+            success_msg:'You Are Successfully Updated Customer Info'
+          })
+        }
+      })
+    })
+  
+  
+    
+    });
+    router.post('/editaccount/(:accountid)',ensureAuthenticated,async function(req,res){
+      const{bankname,accountnumber,intialbalance} = req.body;
+    var qdludt = "update account set intialbalance= '"+intialbalance+"',bankname= '"+bankname+"',accountnumber= '"+accountnumber+"' where accountid ='"+req.params.accountid+"'";
+   
+    connection.query(qdludt,function(error,results,fields){
+      if(error)
+      {
+
+      }
+      connection.query("select * from account",function(error,results,fields)
+      {
+        if(error){
+      
+        }
+        else
+        {
+          res.render('editaccount',{user:req.user,
+            account:results,
+            updatedid:req.params.customerid,
+            success_msg:'You Are Successfully Updated Account Info'
+          })
+        }
+      })
+    })
+
+    });
+    router.post('/editinventory/(:inventoryid)',ensureAuthenticated,async function(req,res){
+      const{inventorymanager,contactphone,inventoryname} = req.body;
+    var qdludt = "update inventory set inventoryname= '"+inventoryname+"' inventorymanager= '"+inventorymanager+"',contactphone= '"+contactphone+"' where inventoryid ='"+req.params.inventoryid+"'";
+    connection.query(qdludt,function(error,results,fields){
+      if(error)
+      {
+
+      }
+      connection.query("select * from inventory",function(error,results,fields)
+      {
+        if(error){
+      
+        }
+        else
+        {
+          res.render('editinventory',{user:req.user,
+            account:results,
+            updatedid:req.params.customerid,
+            success_msg:'You Are Successfully Updated Inventory Info'
+          })
+        }
+      })
+    }) 
+  
+      
+      });
+      router.post('/edituser/(:userid)',ensureAuthenticated,async function(req,res){
+        const{username,password} = req.body;
+        bcrypt.genSalt(10, (err, salt) => {
+          bcrypt.hash(password, salt, (err, hash) => {
+            if (err) throw err;
+          var  newpassword = hash;
+          var qdludt = "update users set username= '"+username+"',password= '"+newpassword+"' where userid ='"+req.params.userid+"'";
+          connection.query(qdludt,function(error,results,fields){
+            if(error)
+            {
+      
+            } 
+            connection.query("select * from users",function(error,results,fields)
+            {
+              if(error){
+            
+              }
+              else
+              {
+                res.render('edituser',{user:req.user,
+                  account:results,
+                  updatedid:req.params.customerid,
+                  success_msg:'You Are Successfully Updated User Info'
+                })
+              }
+            })
+  
+          })
+          });
+        });
+     
+      });
+      router.get('/data',async function(req,res)
+      {
+        connection.query("SELECT  distinct containernumber  FROM productlist",function(error,results,fields){
+          if(error)
+          {
+console.log(error)
+          }
+          console.log(results)
+        res.render('data',{user:req.user,
+        
+          containernumber:results
+        })
+
+        })
+
+      })
+      router.post('/deleteinventorydata',async function(req,res)
+      {
+        const{containerid} = req.body;
+        connection.query("delete from productlist where containernumber='"+containerid+"'",function(error,results,Fields)
+        {
+          if(error)
+          {
+console.log(error)
+          }
+          connection.query("SELECT  distinct containernumber  FROM productlist",function(error,results,fields){
+            if(error)
+            {
+  console.log(error)
+            }
+            console.log(results)
+          res.render('data',{user:req.user,
+          
+            containernumber:results
+          })
+  
+          })
+        })
+       
+      })
 module.exports = router;

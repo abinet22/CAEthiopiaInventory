@@ -195,7 +195,7 @@
      
       </div>
       <div class="col-sm-8">
-        <input class="form-control form-control-sm" list="datalistOptions" autocomplete="off" id="containernumber" name="containernumber" placeholder="Type to search...">
+        <!-- <input class="form-control form-control-sm" list="datalistOptions" autocomplete="off" id="containernumber" name="containernumber" placeholder="Type to Search...">
   <datalist id="datalistOptions">
     <option>Please Select Container Number</option>
           <% if (containernumber.length >0){ %>
@@ -205,8 +205,20 @@
               <% })} else { %>
           
         <%  } %>
-  </datalist>
-      
+   
+
+
+  </datalist> -->
+  <select class="form-control" id="containernumber" name="containernumber">
+    <option>Please Select Container Number</option>
+    <% if (containernumber.length >0){ %>
+     
+      <% containernumber.forEach(function(row){ %>
+        <option value="<%= row.containernumber %>"><%= row.containernumber %></option>
+        <% })} else { %>
+    
+  <%  } %>
+  </select>
       </div>
       </div>
       

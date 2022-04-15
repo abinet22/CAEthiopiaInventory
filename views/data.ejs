@@ -149,7 +149,37 @@
       <div class="main-panel">
         <div class="content-wrapper">
 
-
+          <div class="col-12 grid-margin stretch-card">
+            <div class="card">
+              <%- include ('./partials/messages') %>
+              <div class="card-body">
+                <h4 class="card-title">Add System User</h4>
+                <p class="card-description">
+                 System User
+                </p>
+                <form class="forms-sample" action="/deleteinventorydata" method="post">
+                                 
+                  <div class="form-group">
+                    <label for="exampleInputEmail3">Container ID</label>
+                  <select class="form-control" name="v" id="containerid">
+                    <option value="0">Please Select Container ID</option>
+                    <% if (containernumber.length >0){ %>
+     
+                      <% containernumber.forEach(function(row){ %>
+                        <option value="<%= row.containernumber %>"><%= row.containernumber %></option>
+                        <% })} else { %>
+                    
+                  <%  } %>
+                  </select>
+                  
+                  </div>
+                  <div class="col-md-6 offset-md-3">
+                    <button type="submit" class="btn btn-primary btn-block">Delete</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
 
 
         </div>
